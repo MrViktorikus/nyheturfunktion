@@ -10,7 +10,7 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 
 if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"] == UPLOAD_ERR_OK) {
     ############ Edit settings ##############
-    $UploadDirectory = 'D:/xampp/htdocs/administration/grupp5/csv/'; //specify upload directory ends with / (slash)
+    $UploadDirectory = 'D:/xampp/htdocs/berzanappen/csv'; //specify upload directory ends with / (slash)
     ##########################################
 
     /*

@@ -36,7 +36,7 @@
         
               
         <?php
-        include 'schema.php';
+        include 'schema_iv1.php';
         ?>
     </body>
 </html>

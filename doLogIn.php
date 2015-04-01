@@ -18,9 +18,11 @@ $login = $stmt->fetch();
 //    var_dump($login);
 if (!empty($login)) {
     $_SESSION["anvnamn"] = $anvnamn;
+    $_SESSION["klass"] = $login["klass"];
     if ($checkbox) {
-        setcookie("always_online", 1, time()+10);
-        setcookie("anvnamn", $anvnamn, time()+10);
+        setcookie("always_online", 1, time()+60);
+        setcookie("anvnamn", $anvnamn, time()+60);
+        setcookie("anvnamn", $login["klass"], time()+60);
     } else {
 //            setcookie("always_online", 0);
 //            setcookie("anvnamn",0);        

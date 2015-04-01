@@ -6,8 +6,8 @@
     </head>
     <body>
         <form method = 'POST' action="doLogin.php">
-            <p>Användarnamn:</p> <input type = 'text' name = 'anvnamn' required>
-            <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>
+            <p>Användarnamn:</p> <input type = 'text' value="albjoh456" name = 'anvnamn' required>
+            <p>Lösenord:</p><input type = 'password' value="albjoh456" name = 'losord' required><br>
             <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
             <input type = 'submit' value = 'Logga in'>
         </form>

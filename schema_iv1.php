@@ -37,17 +37,16 @@ if (isset($_GET["klass"])) {
 }
 
 //sätt $klass till vad nu inställningen är i inlog-tabellen
-session_start();
-$_SESSION["anvnamn"] = 'idaekb123';
+
 
 $anvnamn = $_SESSION["anvnamn"];
-
+var_dump($anvnamn);
 $sql = "SELECT klass FROM users WHERE anvnamn='" . $anvnamn . "'";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
-$klass = $stmt->fetch();
+$klass = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
+var_dump($klass);
 
 //vecka = heltal enligt ISO-8601
 //om inget anges s�tts den till nuvarande vecka

@@ -39,7 +39,7 @@ include "admin/debug.php";
         <?php echo $print; ?>
         <p>Här ska man skickas vidare till en sida beroende på vad man gjort för inställningar. Om man inte gjort någon inställning så ska man få upp denna sida och knappar nedan med länkar till de olika sektionerna</p>
         <ul>
-            <li><a href="schema.php">Schema ?</a></li>
+            <li><a href="schema_iv.php">Schema ?</a></li>
         <li><a href="">?? Kalender ??</a></li>
         <li><a href="matsedel.php">Matsedel ?</a></li>
         <li><a href="news.php">Nyheter ?</a></li>

@@ -1,11 +1,10 @@
 # berzanappen
 
-##Instruktioner för testmiljö
-För att sätta upp en testmiljö för din del så...
- 1.Skapa databasen berzanapp
- 2.Importera tabell
-   a.Imporera berzanapp.sql vi phpMyAdmin
-   b.Kör setupDB.php
+##Att göra
+1.Fixa filer från Niklas/Fronter
+2.Flytta in nya html-filerna
+3.Jämför er del i php med delen i html.
+4.Sätt ihop. Utgå från index.html
 
 ##2015-03-30
 - Tog in nyheter från Viktor, Anton och Albin. Merge OK. Måste städa bland filnamnen.

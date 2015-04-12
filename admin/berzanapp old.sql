@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 01 apr 2015 kl 14:42
+-- Tid vid skapande: 25 mars 2015 kl 14:26
 -- Serverversion: 5.6.21
 -- PHP-version: 5.6.3
 
@@ -19,31 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Databas: `berzanapp`
 --
-DROP DATABASE `berzanapp`;
 CREATE DATABASE IF NOT EXISTS `berzanapp` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `berzanapp`;
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `datum`
---
-
-DROP TABLE IF EXISTS `datum`;
-CREATE TABLE IF NOT EXISTS `datum` (
-`id` int(11) NOT NULL,
-  `datum` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `datum`
---
-
-INSERT INTO `datum` (`id`, `datum`) VALUES
-(1, '2015-01-06 00:00:00'),
-(2, '2015-01-02 10:00:00'),
-(3, '2015-02-01 00:00:00'),
-(4, '2015-01-30 10:00:00');
 
 -- --------------------------------------------------------
 
@@ -63,25 +40,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumpning av Data i tabell `users`
---
-
-INSERT INTO `users` (`fornamn`, `efternamn`, `anvnamn`, `losenord`, `iv`, `mail`, `klass`) VALUES
-('albin', 'johansson', 'albjoh456', 'albjoh456', '', '', 'te12e'),
-('alexander', 'seidl', 'alesei876', 'alesei876', '', '', 'te12e'),
-('martin', 'benno', 'marben431', 'marben431', '', '', 'te12e'),
-('mattias', 'Arnestad', 'matarn345', 'matarn345', '', '', 'te12e'),
-('truls', 'warvsten', 'truwar567', 'truwar567', '', '', 'te12e');
-
---
 -- Index för dumpade tabeller
 --
-
---
--- Index för tabell `datum`
---
-ALTER TABLE `datum`
- ADD PRIMARY KEY (`id`);
 
 --
 -- Index för tabell `users`
@@ -89,15 +49,6 @@ ALTER TABLE `datum`
 ALTER TABLE `users`
  ADD PRIMARY KEY (`anvnamn`);
 
---
--- AUTO_INCREMENT för dumpade tabeller
---
-
---
--- AUTO_INCREMENT för tabell `datum`
---
-ALTER TABLE `datum`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

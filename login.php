@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>login.php</title>
-    </head>
-    <body>
-        <form method = 'POST' action="doLogin.php">
-            <p>Användarnamn:</p> <input type = 'text' value="albjoh456" name = 'anvnamn' required>
-            <p>Lösenord:</p><input type = 'password' value="albjoh456" name = 'losord' required><br>
-            <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
-            <input type = 'submit' value = 'Logga in'>
-        </form>
-        <form method='POST'> <input type = 'submit' value = 'Glömt Lösenord?' name='glomt'></form>
-    </body>
-</html>
+<?php
+
+if (isset($_SESSION["anvnamn"])) {
+    if ($_SESSION["anvnamn"] != "0") {
+//        $print = "<h1>" . $_SESSION["anvnamn"] . " är inloggad via session</h1>";
+    }
+} elseif (isset($_COOKIE["anvnamn"])) {
+    if ($_COOKIE["anvnamn"] != "0") {
+//        $print = "<h1>" . $_COOKIE["anvnamn"] . " är inloggad via cookie</h1>";
+    } else {
+//        $print = "<h1>ej inloggad, cookie finns men 0</h1>";
+    }
+} else {
+//    $print = "<h1>logga in (vidareskickaning inaktiverad)</h1>";
+    header("Location: loginForm.php");
+}

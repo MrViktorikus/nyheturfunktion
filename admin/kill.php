@@ -12,4 +12,4 @@ var_dump($_SESSION);
 echo "<br>Cookies: ";
 var_dump($_COOKIE);
 
-//header('Location: ../index.php');
+header('Location: ../index.php');

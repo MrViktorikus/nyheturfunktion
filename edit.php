@@ -10,6 +10,7 @@
         <?php
         include "db.php";
         include "getData.php";
+        include "editsave.php";
         echo "infos:";
 
         var_dump($infos);

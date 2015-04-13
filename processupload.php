@@ -2,7 +2,7 @@
 
 if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"] == UPLOAD_ERR_OK) {
     ############ Edit settings ##############
-    $UploadDirectory = getcwd() . '/img/'; //specify upload directory ends with / (slash)
+    $UploadDirectory = getcwd() . '/images/'; //specify upload directory ends with / (slash)
     ##########################################
 
     /*

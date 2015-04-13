@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Berzan - Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=yes" />
+        
+		<link type="text/css" rel="stylesheet" href="../css/main.css" />
+		<link type="text/css" rel="stylesheet" href="../js/jQuery.mmenu-master/src/scss/berzanTheme-mmenu.css" />
+		<link type="text/css" rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css"/>
+		<link type="text/css" rel="stylesheet" href="../css/login.css">
+		<link type="text/css" rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+        
+        <!--
+        ** bibliotek som är använda:
+        ** - Jquery-1.11.2
+        ** - Jquery-mobile-custom (endast övergångar och events)
+        ** - idangerous.swiper-2.0 
+        ** 
+        ** dessa är bibliotek som är under öppen källkod och användning för kommersielt bruk utan licensiering så länge man inte påstår sig ha skrivit det själv. 
+        ** biblioteken har egna .css och .js filer som jag inte har skrivit, dock så har jag skrivit tilläg till dem som ändrar utseende. dessa ligger som klasser i sidans egna .css. 
+        -->
+		
+		<script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery.mmenu-master/src/js/jquery.mmenu.min.all.js"></script>
+        <SCRIPT>
+            //disables ajax(för problem med länkar)
+            $(document).bind("mobileinit", function() {
+                $.mobile.ajaxEnabled = false;
+            });
+        </SCRIPT>
+		<script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+		// javascript, hide header script from: http://osvaldas.info/auto-hide-sticky-header
+		/*
+		By Osvaldas Valutis, www.osvaldas.info
+		Available for use under the MIT License
+		*/
+		// JQUERY VERSION:
+		$(document).ready(function(){
+			;( function( $, window, document, undefined ){
+				'use strict';
+
+				var elSelector		= '.header',
+					$element		= $( elSelector );
+
+				if( !$element.length ) return true;
+
+				var elHeight		= 0,
+					elTop			= 0,
+					$document		= $( document ),
+					dHeight			= 0,
+					$window			= $( window ),
+					wHeight			= 0,
+					wScrollCurrent	= 0,
+					wScrollBefore	= 0,
+					wScrollDiff		= 0;
+
+				$window.on( 'scroll', function()
+				{
+					elHeight		= $element.outerHeight();
+					dHeight			= $document.height();
+					wHeight			= $window.height();
+					wScrollCurrent	= $window.scrollTop();
+					wScrollDiff		= wScrollBefore - wScrollCurrent;
+					elTop			= parseInt( $element.css( 'top' ) ) + wScrollDiff;
+
+					if( wScrollCurrent <= 0 ) // scrolled to the very top; element sticks to the top
+						$element.css( 'top', 0 );
+
+					else if( wScrollDiff > 0 ) // scrolled up; element slides in
+						$element.css( 'top', elTop > 0 ? 0 : elTop );
+
+					else if( wScrollDiff < 0 ) // scrolled down
+					{
+						if( wScrollCurrent + wHeight >= dHeight - elHeight )  // scrolled to the very bottom; element slides in
+							$element.css( 'top', ( elTop = wScrollCurrent + wHeight - dHeight ) < 0 ? elTop : 0 );
+
+						else // scrolled down; element slides out
+							$element.css( 'top', Math.abs( elTop ) > elHeight ? -elHeight : elTop );
+					}
+
+					wScrollBefore = wScrollCurrent;
+				});
+
+			})( jQuery, window, document );
+		});
+		</script>
+		<script type="text/javascript">
+			//to remove bottom loading text
+			$.mobile.loading().hide();
+			$(document).ready(function() {
+				/*$( document ).on( "swipeleft", "#body", function() {
+        			$("#menu").trigger("open.mm");
+    			});
+				$( document ).on( "swiperight", "#body", function() {
+        			$("#menu").trigger("close.mm");
+    			});*/
+
+				//slide animation in menu
+				$("#liGroup").click(function(){
+					$("#subUl").stop().slideToggle();
+				});
+				$("#menu").mmenu({
+					//options for offCanvas mmenu 
+					classes: "mm-slide",
+					slidingSubmenus: false,
+					header: {
+						add: true,
+						update: true,
+						title: "Meny"
+					}, 
+					footer: {
+						add: true,
+						title: "&copy; 2015"
+					},
+					offCanvas: {
+						position: "right" 
+					}
+				});
+				//vibrate when opening / closing menu
+				if ("vibrate" in navigator) {
+					$("#menu").mmenu().on( "opening.mm", function() {
+						navigator.vibrate(20);
+					});
+					$("#menu").mmenu().on( "closing.mm", function() {
+						navigator.vibrate(20);
+					});
+				}
+			});
+		</script>
+	</head>
+	<body id="body">
+		<div id="page">
+			<nav id="menu">
+				<ul>
+					<li><a id="nyheter" href="nyheter.html"><i class="fa fa-newspaper-o"></i> Nyheter</a></li>
+					<li id="liGroup">
+						<span><i class="fa fa-credit-card"></i> Credits</span>
+						<ul id="subUl">
+							<li><a id="TE12E-gra" href="TE12E-gra.html"><i class="fa fa-pencil-square-o"></i> TE12E - Gränsnittsdesign</a></li>
+							<li><a id="IV-prog2"href="IV-prog2.html"><i class="fa fa-mobile"></i> IV - Programering 2</a></li>
+							<li><a id="TE13E-web" href="TE13E-web.html"><i class="fa fa-code"></i> TE13E - Webbdesign</a></li>
+							<li><a id="TE12E-server" href="TE12E-server.html"><i class="fa fa-server"></i> TE12E - Webbserverprogramering</a></li>
+							<li><a id="T414-ledning" href="T414-ledning.html"><i class="fa fa-users"></i> T414 - Projektledning</a></li>
+						</ul>
+					</li>
+					<li><a id="matsedel" href="matsedel.html"><i class="fa fa-cutlery"></i> Matsedel</a></li>
+					<li><a id="installningar" href="installningar.html"><i class="fa fa-cog"></i> Inställningar</a></li>
+					<li><a id="kontakt" href="kontakt.html"><i class="fa fa-envelope"></i> Kontakt</a></li>
+					<li><a id="schema" href="schema.html"><i class="fa fa-list-alt"></i> Schema</a></li>
+					<li><a id="provschema" href="provschema.html"><i class="fa fa-file-text-o"></i> Provschema</a></li>
+					<li><a id="kalender" href="kalender.html"><i class="fa fa-calendar"></i> Kalender</a></li>
+				</ul>
+			</nav> <!-- End slide menu -->
+			<!-- Use "FixedTop"-class when header is dissapering when opening menu, more info: http://mmenu.frebsite.nl/documentation/addons/fixed-elements.html-->
+			<div id="header" class="header" style="top">
+				<img id="logo" src="../resources/Berzanlogo.png" height="31" width="31">
+				<h1>Login</h1>
+				<a href="#menu"></a>
+			</div> <!-- End header -->
+        
+			<!--huvudinnehållet på sidan-->
+			<div id="content" class="content">
+				<form>
+					<div id="top-margin" align="center">   
+						<!--Ruta för att skriva in användarnamn-->
+						<input type="text" name="Användarnamn" placeholder="Användarnamn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Användarnamn'">
+						<!--Ruta för att skriva in lösenord-->
+						<input type="password" name="Lösenord" placeholder="Lösenord" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lösenord'"><br>
+						<!--En checkbox för att kunna stanna inloggad-->
+						<input type="checkbox" name="checkbox" id="checkbox" value="1"><label for="checkbox">Håll mig inloggad</label><br>
+						<!--Knapp för att logga in-->
+						<button>Logga in</button>
+					</div>
+				</form>
+			</div>
+			<!-- <div id="footer" >
+				
+			</div> <!-- End footer -->
+		</div> <!-- End page -->
+    </body>
+</html>

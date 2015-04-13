@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="author" content="Joachim" />
+        <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=yes" />
+
+        <title>Berzan - Schema</title>
+
+        <link type="text/css" rel="stylesheet" href="../css/main.css" />
+        <link type="text/css" rel="stylesheet" href="../js/jQuery.mmenu-master/src/scss/berzanTheme-mmenu.css" />
+        <link type="text/css" rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css"/>
+        <link type="text/css" rel="stylesheet" href="../css/swiper.css"/>
+        <link type="text/css" rel="stylesheet" href="../css/swiper-config.css">
+        <link type="text/css" rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+
+        <script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="../js/swiper.min.js"></script>
+        <script type="text/javascript" src="../js/jQuery.mmenu-master/src/js/jquery.mmenu.min.all.js"></script>
+        <script type="text/javascript">
+            //ajax disabled because of linking bug
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
+        <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+        <script>
+            // javascript, hide header script from: http://osvaldas.info/auto-hide-sticky-header
+            /*
+             By Osvaldas Valutis, www.osvaldas.info
+             Available for use under the MIT License
+             */
+            // JQUERY VERSION:
+            $(document).ready(function () {
+                ;
+                (function ($, window, document, undefined) {
+                    'use strict';
+
+                    var elSelector = '.header',
+                            $element = $(elSelector);
+
+                    if (!$element.length)
+                        return true;
+
+                    var elHeight = 0,
+                            elTop = 0,
+                            $document = $(document),
+                            dHeight = 0,
+                            $window = $(window),
+                            wHeight = 0,
+                            wScrollCurrent = 0,
+                            wScrollBefore = 0,
+                            wScrollDiff = 0;
+
+                    $window.on('scroll', function ()
+                    {
+                        elHeight = $element.outerHeight();
+                        dHeight = $document.height();
+                        wHeight = $window.height();
+                        wScrollCurrent = $window.scrollTop();
+                        wScrollDiff = wScrollBefore - wScrollCurrent;
+                        elTop = parseInt($element.css('top')) + wScrollDiff;
+
+                        if (wScrollCurrent <= 0) // scrolled to the very top; element sticks to the top
+                            $element.css('top', 0);
+
+                        else if (wScrollDiff > 0) // scrolled up; element slides in
+                            $element.css('top', elTop > 0 ? 0 : elTop);
+
+                        else if (wScrollDiff < 0) // scrolled down
+                        {
+                            if (wScrollCurrent + wHeight >= dHeight - elHeight)  // scrolled to the very bottom; element slides in
+                                $element.css('top', (elTop = wScrollCurrent + wHeight - dHeight) < 0 ? elTop : 0);
+
+                            else // scrolled down; element slides out
+                                $element.css('top', Math.abs(elTop) > elHeight ? -elHeight : elTop);
+                        }
+
+                        wScrollBefore = wScrollCurrent;
+                    });
+
+                })(jQuery, window, document);
+            });
+        </script>
+        <script type="text/javascript">
+            //to remove bottom loading text
+            $.mobile.loading().hide();
+            $(document).ready(function () {
+                /*$( document ).on( "swipeleft", "#body", function() {
+                         			$("#menu").trigger("open.mm");
+                     			});
+                 $( document ).on( "swiperight", "#body", function() {
+                         			$("#menu").trigger("close.mm");
+                     			});
+                 
+                 // Prevent swipe
+                 $(".disable-swipe").on("touchstart mousedown", function(e) {
+                 e.stopPropagation();
+                 })*/
+                //swiper initialize when document ready
+                swiper = new Swiper('.swiper-container', {
+                    pagination: '.swiper-pagination',
+                    hashNav: true,
+                    paginationClickable: true
+                });
+
+                //slide animation in menu
+                $("#liGroup").click(function () {
+                    $("#subUl").stop().slideToggle();
+                });
+
+                $("#menu").mmenu({
+                    //options for offCanvas mmenu 
+                    classes: "mm-slide",
+                    slidingSubmenus: false,
+                    header: {
+                        add: true,
+                        update: true,
+                        title: "Meny"
+                    },
+                    footer: {
+                        add: true,
+                        title: "&copy; 2015"
+                    },
+                    offCanvas: {
+                        position: "right"
+                    }
+                });
+                //vibrate when opening / closing menu
+                if ("vibrate" in navigator) {
+                    $("#menu").mmenu().on("opening.mm", function () {
+                        navigator.vibrate(20);
+                    });
+                    $("#menu").mmenu().on("closing.mm", function () {
+                        navigator.vibrate(20);
+                    });
+                }
+            });
+        </script>
+        <script>
+            /*
+             *Detta script genererar schema samt tilldelar länken till schemat till de <img>-taggar som ska ha den.
+             * Det som inte är gjort i javascript/jquery är:
+             * -att ta reda på vilken vecka det är när sidan laddas in.
+             * -spara vilken klass som ska vara preset.
+             * anledningen till detta är att jag(kim te13e) inte vet hur ni vill spara det, samt att det är lättare/bättre att göra i php då javascript sparar i cookies. 
+             * det som behöver göras vid inladdning är:
+             * - ange nuvarande veckan(i funktionen init())
+             * -ange vilken klass som ska vara preset(i funktionen init()).
+             * - uppdatera id:n på klasserna.(då det kommer att komma nya klasser m.m.)
+             * -ev. lägga till så att man kan söka på klassrum.(de värdena är inte inlagda här) 
+             *
+             * //Kim Te13E
+             */
+            var format = "png";
+            var schoolid = "89920";//berzeliusskolans id
+            var id;
+            var week;
+            var width;
+            var height;
+            /*
+             *genererar länken för bilden
+             *använder alla globala variabler samt får in vilken dag den ska generera schemat för.
+             *returnerar länken som en string
+             */
+            function newScheme(day) {
+                var scheme;
+                scheme = "http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=" + format + "&schoolid=" + schoolid + "/sv-se&type=1&id=" + id + "&period=&week=" + week + "&mode=0&printer=0&colors=32&head=0&clock=0&foot=0&day=" + day + "&width=" + width + "&height=" + height + "&maxwidth=" + width + "&maxheight=" + height;
+                return scheme;
+            }
+            function updateVariables() {
+                id = $(".selectClass option:selected").val();
+                week = $(".selectWeek option:selected").val();
+
+                width = $(".swiper-slide").width() - 20;
+                height = $(".swiper-slide").height() - $(".swiper-slide").children("p").height() - 15;
+            }
+            //sätter src på alla dagars <img> till dagen
+            function setScheme() {
+                updateVariables();
+                for (i = 0; i <= 4; i++) {
+                    $("#" + i).attr({
+                        src: newScheme(Math.pow(2, i))
+                    });
+                }
+                //flyttar tillbaka swipern till måndag(dag0)
+                swiper.slideTo(0);
+            }
+            /*
+             * Funktionen sätter vlka veckor som ska vara valbara
+             * pastWeek: hur många veckor tillbaks man ska kunna se.
+             * currentWeek
+             * total: hur många veckor som visas
+             */
+            function setWeek(pastWeek, currentWeek, total) {
+
+
+                var weekSelector = $("select.selectWeek");
+                for (var i = currentWeek - pastWeek; i < currentWeek - pastWeek + total; i++) {
+                    var option;
+                    option = '<option value="' + i + '">' + i + '</option>';
+                    weekSelector.append(option);
+                }
+                $('[value="' + currentWeek + '"]').attr({
+                    selected: "selected"
+                });
+                $("span.selectWeek").append(currentWeek);
+
+            }
+            function insertClasses(clazz) {
+                //detta ska inte vara hårdkodat egentligen, men kan inte hur man ska göra för att få det som Array från php.
+                //kan inte heller testa det
+                var allClasses = [
+                    '<option value="{37D05F33-62EA-4615-9F64-A9982F166C1D}" name="fskr tid">Fskr tid</option>',
+                    '<option value="{37D05F33-62EA-4615-9F64-A9982F166C1D}" name="fskr tid">Fskr tid</option>',
+                    '<option value="{ED69C228-FE97-4E6D-AC0D-30AEF76401B3}" name="ia2">IA2</option>',
+                    '<option value="{50C6E5DC-4375-4F0A-91E2-B199B0508182}" name="intag">INTAG</option>',
+                    '<option value="{873E0423-BE05-47E1-BB11-4D234A34BF1A}" name="na12a">NA12A</option>',
+                    '<option value="{919FDFCB-CFA6-4015-AE45-833EDE3DBBD3}" name="na12b">NA12B</option>',
+                    '<option value="{E50D75C0-0BFA-4ED7-ADA4-87B264585FB3}" name="na12c">NA12C</option>',
+                    '<option value="{35A90490-ADFD-4BCB-B73F-60DEFBEB3968}" name="na13a">NA13A</option>',
+                    '<option value="{38863FCA-09FF-4C95-B028-826FF0A6AD0F}" name="na13b">NA13B</option>',
+                    '<option value="{B14ABA7E-05AC-488F-B916-1EDC6059065E}" name="na13c">NA13C</option>',
+                    '<option value="{2FF41AD7-5B69-40B7-96ED-607A3B64C36C}" name="na13h">NA13H</option>',
+                    '<option value="{FEDE0A8D-6950-40FB-BDA0-0E92DAF41464}" name="na14a">NA14A</option>',
+                    '<option value="{D8930601-44FB-42FF-BA52-431436A79AA7}" name="na14b">NA14B</option>',
+                    '<option value="{424707BA-500B-4B3A-95D3-8D7659EC742F}" name="na14c">NA14C</option>',
+                    '<option value="{C976042A-24BF-4066-8E8D-27B41ADD8445}" name="na14h">NA14H</option>',
+                    '<option value="{9DFF7E9F-59B8-4F36-8DBD-023C74AAA793}" name="nt12G">NT12G</option>',
+                    '<option value="{58C8ABE7-AE8E-4964-9AC2-E4BA758572B0}" name="sva">SVA</option>',
+                    '<option value="{513A0771-2CCE-4C93-95E6-B846835CFA08}" name="t414">T414</option>',
+                    '<option value="{9B00EE0A-5088-42BD-8E22-9A8CAB065B4E}" name="te12d">TE12D</option>',
+                    '<option value="{A5C1F3A9-339F-491F-83A8-240DB05149AA}" name="te12e">TE12E</option>',
+                    '<option value="{B069D681-82EC-48DF-AB97-450CA41D10BE}" name="te12f">TE12F</option>',
+                    '<option value="{0CDC5F2A-4FEA-4B52-BD16-407B05AD021E}" name="te13d">TE13D</option>',
+                    '<option value="{2A8ED571-8278-4786-BC76-53C7D766AB0D}" name="te13e">TE13E</option>',
+                    '<option value="{A50EE382-AA34-41FD-B83D-701D21D671FB}" name="te13f">TE13F</option>',
+                    '<option value="{5DBD0C49-9B2B-4469-BE13-89D4ED2C7506}" name="te13g">TE13G</option>',
+                    '<option value="{FB87AC02-2A57-4892-9B02-A2401E326282}" name="te14d">TE14D</option>',
+                    '<option value="{3872397A-35FD-4A43-96C1-F4CA7AA9B093}" name="te14e">TE14E</option>',
+                    '<option value="{138C0794-FEFD-41E4-9399-A2C2350BF76B}" name="te14f">TE14F</option>',
+                    '<option value="{97A1502C-A93B-4509-A1F7-03C85B86F6EE}" name="te14g">TE14G</option>'];
+
+                $("select.selectClass").append(allClasses);
+                $('[name="' + clazz + '"]').attr({
+                    selected: "selected"
+                });
+                $("span.selectClass").append(clazz.toUpperCase());
+            }
+            function init() {
+                var clazz;
+                //dena rad borde sätta clazz till den klassen man går i, kan inte testa då jag inte kan så mycket php.
+                //skall vara endast småbokstäver och siffror.
+                //clazz = "<?php Print($savedClassStringVar); ?>";
+                //tilldelar vilken vecka som ska visas vid start
+                //week = "<?php Print($currentWeekStringVar); ?>";
+
+                //för testsyfte.
+                clazz = "te13e";
+                week = "12";
+
+                //lägger till alla klasser i dropdown menyn.
+                insertClasses(clazz);
+                //visar 15 veckor totalt inkuderat förra veckan
+                setWeek(1, week, 15);
+                setScheme();
+            }
+        </script>
+    </head>
+    <body id="body" onload="init()">
+        <div id="page">
+            <nav id="menu">
+                <ul>
+                    <li><a id="nyheter" href="nyheter.html"><i class="fa fa-newspaper-o"></i> Nyheter</a></li>
+                    <li id="liGroup">
+                        <span><i class="fa fa-credit-card"></i> Credits</span>
+                        <ul id="subUl">
+                            <li><a id="TE12E-gra" href="TE12E-gra.html"><i class="fa fa-pencil-square-o"></i> TE12E - Gränsnittsdesign</a></li>
+                            <li><a id="IV-prog2" href="IV-prog2.html"><i class="fa fa-mobile"></i> IV - Programering 2</a></li>
+                            <li><a id="TE13E-web" href="TE13E-web.html"><i class="fa fa-code"></i> TE13E - Webbdesign</a></li>
+                            <li><a id="TE12E-server" href="TE12E-server.html"><i class="fa fa-server"></i> TE12E - Webbserverprogramering</a></li>
+                            <li><a id="T414-ledning" href="T414-ledning.html"><i class="fa fa-users"></i> T414 - Projektledning</a></li>
+                        </ul>
+                    </li>
+                    <li><a id="matsedel" href="matsedel.html"><i class="fa fa-cutlery"></i> Matsedel</a></li>
+                    <li><a id="installningar" href="installningar.html"><i class="fa fa-cog"></i> Inställningar</a></li>
+                    <li><a id="kontakt" href="kontakt.html"><i class="fa fa-envelope"></i> Kontakt</a></li>
+                    <li class="Selected"><a id="schema" href="schema.html"><i class="fa fa-list-alt"></i> Schema</a></li>
+                    <li><a id="provschema" href="provschema.html"><i class="fa fa-file-text-o"></i> Provschema</a></li>
+                    <li><a id="kalender" href="kalender.html"><i class="fa fa-calendar"></i> Kalender</a></li>
+                </ul>
+            </nav> <!-- End slide menu -->
+            <!-- Use "FixedTop"-class when header is dissapering when opening menu, more info: http://mmenu.frebsite.nl/documentation/addons/fixed-elements.html-->
+            <div id="header" class="header FixedTop" style="top">
+                <img id="logo" src="../resources/Berzanlogo.png" height="31" width="31">
+                <h1>Schema</h1>
+                <a href="#menu"></a>
+            </div> <!-- End header -->
+            <div class="content">
+                <div id="select">
+                    <div>
+                        Välj vecka:
+                        <select name="select-choice-mini" id="select-choice-mini" class="selectWeek" data-mini="true" data-inline="true" onchange="setScheme()">
+                        </select>
+                    </div>
+                    <div>
+                        Klass:
+                        <select name="select-choice-mini" id="select-choice-mini" class="selectClass" data-mini="true" data-inline="true" onchange="setScheme()">
+                        </select>
+                    </div>
+                </div>
+                <div class="swiper-container disable-swipe">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide color-black">
+                            <img id="0" src="../resources/schema.png">
+                            <p>Swipa för att byta dag</p>
+                        </div>
+                        <div  class="swiper-slide color-black">
+                            <img id="1" src="../resources/schema.png">
+                            <p>Swipa för att byta dag</p>
+                        </div>
+                        <div  class="swiper-slide color-black">
+                            <img id="2" src="../resources/schema.png">
+                            <p>Swipa för att byta dag</p>
+                        </div>
+                        <div  class="swiper-slide color-black">
+                            <img id="3"  src="../resources/schema.png">
+                            <p>Swipa för att byta dag</p>
+                        </div>
+                        <div  class="swiper-slide color-black">
+                            <img id="4" src="../resources/schema.png">
+                            <p>Swipa för att byta dag</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End content -->
+        </div> <!-- End page -->
+    </body>
+</html>

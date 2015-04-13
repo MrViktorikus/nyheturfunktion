@@ -1,0 +1,110 @@
+div.select .ui-select {
+	margin-left: 12px !important;
+}
+
+.header{
+    z-index: 999;
+}
+.swiper-slide{
+    height: 100%;
+}
+.events{
+	color: #000;
+	border-radius: 8px;
+	background: #fff;
+}
+.content {
+	padding-bottom: 0px !important;
+}
+.dag{
+	color: #000;
+	font-size: 20px;
+	padding: 0 6px;
+	text-align: center;
+}
+.event{
+    height: 3em;
+    border-top: lightgray solid 1px;
+    border-bottom: lightgray solid 1px;
+    position: relative;
+
+}
+.event.a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    
+}
+.starttid{
+    font-size: 15px;
+    float: right;
+    top: 0.4em;
+    right: 10px;
+    position: absolute;
+}
+.pop-eventInfo {
+	padding: 3px 6px;
+}
+.sluttid{
+    font-size: 15px;
+    float: right;
+    bottom: 0.4em;
+    right: 10px;
+    position: absolute;
+
+}
+.info{
+    text-align: center;
+    font-size: 20px;
+    position: absolute;
+	margin: 5px 6px;
+	overflow:hidden;
+}
+.cal {
+	border-radius:5px;
+	color: #000;
+	font-size: 18px;
+	
+	
+	border-top: #F4EEEE outset;
+	border-left: #F4EEEE outset;
+	border-right: #F4EEEE outset;
+	border-bottom: #F4EEEE outset;
+}
+/*.eventInfo{
+    display: none;
+}*/
+#popup-add-popup {
+	width: 80%;
+	left: 10%;
+	right: 10%;
+	top: 60px !important;
+	margin-bottom: 10px;
+}
+#vecka{
+    font-size: 26px;
+	text-align: center;
+	color: #fff;
+	background: #8C1141;
+	border-radius:3px;
+}
+
+#add {
+	float: right;  
+	margin-top: 4px;
+	margin-left: 0px;
+}
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+@media screen and (max-width: 404px) {
+	#add {
+		float: none;
+	}
+}
+
+/* 
+    Created on : 2015-mar-14, 14:11:02
+    Author     : Kimpan
+*/
+

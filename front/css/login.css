@@ -1,0 +1,55 @@
+#content{
+    z-index: 1;
+    /* position: relative; */
+    top: 6em;
+    padding-bottom: 4em;;
+}
+#content form input[type="text"],
+#content form input[type="password"],
+#content form button{
+    position: relative;
+    width: 80%;
+    height: 3em;
+    border-radius: 5px;
+   /*  margin-top: 1em;  */
+    text-align: center;
+}
+#content form input[type="checkbox"]{
+    margin-top: 1.5em;
+    margin-left: 0;
+}
+
+#top-margin {
+	margin-top: 15px;
+}
+input[type="checkbox"]:not(old){
+    width   : 0;
+    padding : 0;
+    opacity : 0;
+    margin: 0;
+}
+input[type="checkbox"]:not(old) + label{
+    display      : inline-block;
+    /* 0 */
+    background   : url('../resources/checkbox.png') no-repeat 0 0;
+    /* line-height  : 34px; */
+}
+input[type="checkbox"]:not(old):checked + label{
+   /*  background-position : 0 -76px; */
+    
+}
+@media screen and (max-width: 770px){
+    input[type="checkbox"]{
+        margin-left: 10%;
+    }
+}
+@media screen and (max-width: 570px){
+    input[type="checkbox"]{
+        margin-left: 5%;
+    }
+}
+@media screen and (max-width: 460px){
+    input[type="checkbox"]{
+        margin-left: 0;
+    }
+}

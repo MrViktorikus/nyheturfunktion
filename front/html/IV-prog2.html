@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Henri" />
+		<meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=yes" />
+
+		<title>Berzan - Credits</title>
+
+		<link type="text/css" rel="stylesheet" href="../css/main.css" />
+		<link type="text/css" rel="stylesheet" href="../css/Credits.css" />
+		<link type="text/css" rel="stylesheet" href="../js/jQuery.mmenu-master/src/scss/berzanTheme-mmenu.css" />
+		<link type="text/css" rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css"/>
+		<link type="text/css" rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+	
+		<script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery.mmenu-master/src/js/jquery.mmenu.min.all.js"></script>
+        <script type="text/javascript">
+			//ajax disabled because of linking bug
+			$(document).bind("mobileinit", function () {
+				$.mobile.ajaxEnabled = false;
+			});
+		</script>
+		<script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+		// javascript, hide header script from: http://osvaldas.info/auto-hide-sticky-header
+		/*
+		By Osvaldas Valutis, www.osvaldas.info
+		Available for use under the MIT License
+		*/
+		// JQUERY VERSION:
+		$(document).ready(function(){
+			;( function( $, window, document, undefined ){
+				'use strict';
+
+				var elSelector		= '.header',
+					$element		= $( elSelector );
+
+				if( !$element.length ) return true;
+
+				var elHeight		= 0,
+					elTop			= 0,
+					$document		= $( document ),
+					dHeight			= 0,
+					$window			= $( window ),
+					wHeight			= 0,
+					wScrollCurrent	= 0,
+					wScrollBefore	= 0,
+					wScrollDiff		= 0;
+
+				$window.on( 'scroll', function()
+				{
+					elHeight		= $element.outerHeight();
+					dHeight			= $document.height();
+					wHeight			= $window.height();
+					wScrollCurrent	= $window.scrollTop();
+					wScrollDiff		= wScrollBefore - wScrollCurrent;
+					elTop			= parseInt( $element.css( 'top' ) ) + wScrollDiff;
+
+					if( wScrollCurrent <= 0 ) // scrolled to the very top; element sticks to the top
+						$element.css( 'top', 0 );
+
+					else if( wScrollDiff > 0 ) // scrolled up; element slides in
+						$element.css( 'top', elTop > 0 ? 0 : elTop );
+
+					else if( wScrollDiff < 0 ) // scrolled down
+					{
+						if( wScrollCurrent + wHeight >= dHeight - elHeight )  // scrolled to the very bottom; element slides in
+							$element.css( 'top', ( elTop = wScrollCurrent + wHeight - dHeight ) < 0 ? elTop : 0 );
+
+						else // scrolled down; element slides out
+							$element.css( 'top', Math.abs( elTop ) > elHeight ? -elHeight : elTop );
+					}
+
+					wScrollBefore = wScrollCurrent;
+				});
+
+			})( jQuery, window, document );
+		});
+		</script>
+		<script type="text/javascript">
+			//to remove bottom loading text
+			$.mobile.loading().hide();
+			$(document).ready(function() {
+				/*$( document ).on( "swipeleft", "#body", function() {
+        			$("#menu").trigger("open.mm");
+    			});
+				$( document ).on( "swiperight", "#body", function() {
+        			$("#menu").trigger("close.mm");
+    			});*/
+				
+				//to disable login button if logged in
+				/*if (inloggad) {
+					$("#login").addClass("ui-disabled");
+					$("#login").text("Användarnamn");
+				}*/
+				
+				//popup login properties
+				$( "#popupLogin" ).on( "popupafteropen", function() {
+					$("#popupLogin").popup("reposition", {positionTo: 'window'});
+					$("#popupLogin").css("visibility", "visible").hide().fadeIn();
+					$("#popupLogin").popup("reposition", {positionTo: 'window'});
+				});
+				$(window).resize(function() {
+					$("#popupLogin").popup("reposition", {positionTo: 'window'});
+				});
+				$("#login").click(function() {
+					$("#menu").trigger("close.mm");
+					$("#popupLogin").css("visibility", "hidden");
+				});
+				
+				//slide animation in menu
+				$("#liGroup").click(function(){
+					$("#subUl").stop().slideToggle();
+				});
+				$("#menu").mmenu({
+					//options for offCanvas mmenu 
+					classes: "mm-slide",
+					slidingSubmenus: false,
+					header: {
+						add: true,
+						update: true,
+						title: "Meny"
+					}, 
+					footer: {
+						add: true,
+						title: "&copy; 2015"
+					},
+					offCanvas: {
+						position: "right" 
+					}
+				});
+				//vibrate when opening / closing menu
+				if ("vibrate" in navigator) {
+					$("#menu").mmenu().on( "opening.mm", function() {
+						navigator.vibrate(20);
+					});
+					$("#menu").mmenu().on( "closing.mm", function() {
+						navigator.vibrate(20);
+					});
+				}
+			});
+		</script>
+	</head>
+	<body id="body">
+		<div id="page">
+			<nav id="menu">
+				<ul>
+					<li><a id="nyheter" href="nyheter.html"><i class="fa fa-newspaper-o"></i> Nyheter</a></li>
+					<li id="liGroup">
+						<span><i class="fa fa-credit-card"></i> Credits</span>
+						<ul id="subUl">
+							<li><a id="TE12E-gra" href="TE12E-gra.html"><i class="fa fa-pencil-square-o"></i> TE12E - Gränsnittsdesign</a></li>
+							<li class="Selected"><a id="IV-prog2"href="IV-prog2.html"><i class="fa fa-mobile"></i> IV - Programering 2</a></li>
+							<li><a id="TE13E-web" href="TE13E-web.html"><i class="fa fa-code"></i> TE13E - Webbdesign</a></li>
+							<li><a id="TE12E-server" href="TE12E-server.html"><i class="fa fa-server"></i> TE12E - Webbserverprogramering</a></li>
+							<li><a id="T414-ledning" href="T414-ledning.html"><i class="fa fa-users"></i> T414 - Projektledning</a></li>
+						</ul>
+					</li>
+					<li><a id="matsedel" href="matsedel.html"><i class="fa fa-cutlery"></i> Matsedel</a></li>
+					<li><a id="installningar" href="installningar.html"><i class="fa fa-cog"></i> Inställningar</a></li>
+					<li><a id="kontakt" href="kontakt.html"><i class="fa fa-envelope"></i> Kontakt</a></li>
+					<li><a id="schema" href="schema.html"><i class="fa fa-list-alt"></i> Schema</a></li>
+					<li><a id="provschema" href="provschema.html"><i class="fa fa-file-text-o"></i> Provschema</a></li>
+					<li><a id="kalender" href="kalender.html"><i class="fa fa-calendar"></i> Kalender</a></li>
+					<a id="login" href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-transition="pop">Logga in</a>
+					<div data-role="popup" id="popupLogin" data-theme="a" data-overlay-theme="a" class="ui-corner-all ui-content">
+						<img id="logoLogin" src="../resources/Berzanlogo.png" height="31" width="31">
+						<h1 id="titleLogin">Inloggning</h1>
+						<form>
+							<div id="top-margin" align="center">	
+								<!--Ruta för att skriva in användarnamn-->
+								<input type="text" name="username" placeholder="Användarnamn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Användarnamn'">
+								<!--Ruta för att skriva in lösenord-->
+								<input type="password" name="password" placeholder="Lösenord" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lösenord'"><br>
+								<!--En checkbox för att kunna stanna inloggad-->
+								<input type="checkbox" name="checkbox" id="checkbox" value="1"><label for="checkbox">Håll mig inloggad</label><br>
+								<!--Knapp för att logga in-->
+								<button type="button" value="login">Logga in</button>
+							</div>
+						</form>
+					</div>
+					<a id="logout" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-transition="pop">Logga ut</a>
+				</ul>
+			</nav> <!-- End slide menu -->
+			<!-- Use "FixedTop"-class when header is dissapering when opening menu, more info: http://mmenu.frebsite.nl/documentation/addons/fixed-elements.html-->
+			<div id="header" class="header FixedTop" style="top">
+				<img id="logo" src="../resources/Berzanlogo.png" height="31" width="31">
+				<h1>Credits</h1>
+				<a href="#menu"></a>
+			</div> <!-- End header -->
+			<div class="content">
+				<div id="field">
+					<h1>IV - Programering 2</h1>
+					<hr>
+					<h4>Arbete</h4>
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					<img src="../resources/arbete.jpg" width="100%"><!--Sätt in bild-->
+					Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisLorem ipsum dolor sit amet, consectetur 		
+					<hr><h4>Samarbete</h4>adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+					<img src="../resources/samarbete.png" width="100%">ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+					<hr><h4>Medlemmar</h4>
+					<li>Sven</li>
+					<li>Svenne</li>
+					<li>Svans</li>
+				</div>
+			</div> <!-- End content -->
+			<!-- <div id="footer" >
+				
+			</div> <!-- End footer -->
+		</div> <!-- End page -->
+	</body>
+</html>

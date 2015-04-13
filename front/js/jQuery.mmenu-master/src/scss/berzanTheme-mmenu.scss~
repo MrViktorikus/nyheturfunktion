@@ -1,0 +1,5 @@
+/* berzanTheme-mmenu.css */
+$mm_textColor: #FFFFFF;
+$mm_backgroundColor: #8C1141;
+@import "jquery.mmenu.scss";
+

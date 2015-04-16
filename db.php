@@ -1,4 +1,8 @@
 <?php
+//define("DB_SERVER", "berzan.hemsida.eu");
+//define("DB_USER", "berzanhe_appen");
+//define("DB_PASSWORD", "berzan");
+//define("DB_NAME", "berzanhe_berzanapp");
 
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
